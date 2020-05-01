@@ -1,3 +1,7 @@
+# Included in ~/.gitconfig via:
+# [include]
+# 	path = /dotfiles-dir/.gitconfig
+
 [core]
 	autocrlf = false
 	fscache = true
