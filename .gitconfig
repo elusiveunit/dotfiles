@@ -1,0 +1,5 @@
+[core]
+	autocrlf = false
+	fscache = true
+[alias]
+	s = status
