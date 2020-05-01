@@ -6,6 +6,8 @@
 # the version below the more changes there are since it parses lines (about the
 # same execution time with 1000 or so changes, slower than below with more).
 # It also adds branch status.
+# Inspired by https://github.com/dahlbyk/posh-git (at the time of writing,
+# Get-GitStatus in src/GitUtils.ps1).
 prompt_git_status_fast() {
 	local status_flags=''
 

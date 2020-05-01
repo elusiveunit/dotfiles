@@ -1,5 +1,7 @@
 # Dotfiles
 
+Lots of stuff grabbed from [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles).
+
 Assumes a bash shell unless otherwise noted.
 
 ## Mac
