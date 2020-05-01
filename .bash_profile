@@ -20,7 +20,7 @@ for file in "$DOTFILES_DIR"/core/{colors,bash_prompt,aliases,functions}; do
   source "${file}.sh"
 done
 # Optional files (use the TEMP hack for easier future additions).
-for file in "$DOTFILES_DIR"/{secrets,TEMP}; do
+for file in "$DOTFILES_DIR"/optional/{secrets,TEMP}; do
 	if [ "${file: -4}" != "TEMP" ]; then
 		source "${file}-default.sh"
 		[ -r "${file}.sh" ] && [ -f "${file}.sh" ] && source "${file}.sh";
