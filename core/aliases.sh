@@ -58,28 +58,21 @@ alias grpe="grep"
 alias gerp="grep"
 alias gti="git"
 
-# Make git output english
+# Force english git output
 alias git="LANG=en_US git"
 
 # Misc. utility stuff
 alias myip="curl -s http://ip.mindius.se/text/"
 alias rsync_s="rsync -avz -e 'ssh -o StrictHostKeyChecking=no'"
 alias ping_ext="dig @8.8.8.8"
-alias count_open_files="lsof -d '^txt' | wc -l"
-
-# Better listing formats
-alias lsa="ls -AhlvF"
-alias lss="ls -AhlvF | sort -k1 -r"
-alias lsd="(ls -d1 */ | cut -f1 -d'/')"
 
 # Get week number
 alias week="date +%V"
 
 # Stopwatch
-alias timer="echo 'Timer started. Stop with Ctrl-D.' && date && time cat && date"
-
-# Recursively delete .DS_Store files
-alias dsstore="find . -name '*.DS_Store' -type f -ls -delete"
+_timer_stop_key="Ctrl-D"
+if is_windows; then _timer_stop_key="Ctrl-C"; fi
+alias timer="echo 'Timer started. Stop with $_timer_stop_key.' && date && time cat && date"
 
 # Proper git
 alias wow="git status"
@@ -88,25 +81,34 @@ alias very="git"
 alias so="git"
 alias much="git"
 
+# Better listing formats
+alias lsa="ls -AhlvF"
+alias lss="ls -AhlvF | sort -k1 -r"
+alias lsd="(ls -d1 */ | cut -f1 -d'/')"
+
+# Improved commands. Some are defined only for Mac below.
+# https://remysharp.com/2018/08/23/cli-improved
+alias prw="fzf --preview 'bat --color \"always\" {}'"
+alias cat="bat"
+
 # Mac only
 if is_mac; then
-	# Improved commands
-	# https://remysharp.com/2018/08/23/cli-improved
-	alias cat="bat"
 	alias ping="prettyping"
-	#alias preview="fzf --preview 'bat --color \"always\" {}'"
-	alias preview="fzf --height 80% --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --color \"always\" --line-range :40 {}; fi'"
-	# add support for ctrl+o to open selected file in VS Code
-	export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
+	alias prw="fzf --height 80% --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --color \"always\" --line-range :40 {}; fi'"
 	alias top="sudo htop"
 	alias dun="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 	alias help="tldr"
+
+	alias count_open_files="lsof -d '^txt' | wc -l"
 
 	alias openssl_brew="/usr/local/Cellar/openssl/1.0.2k/bin/openssl"
 	alias gitinspector="export LC_ALL=en_US.UTF-8;export LANG=en_US.UTF-8;~/projects/gitinspector/gitinspector.py"
 	alias tftp_server="ptftpd -D -v -p 6969 en0 tftp-test"
 
-	# OSX has a BSD ls with other options
+	# Recursively delete .DS_Store files
+	alias dsstore="find . -name '*.DS_Store' -type f -ls -delete"
+
+	# MacOS has a BSD ls with other options
 	alias lsa="ls -AhlvFG"
 
 	# Force git output in english

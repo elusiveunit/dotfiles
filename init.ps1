@@ -6,6 +6,7 @@ if ($confirmation -eq 'y') {
 	Install-PackageProvider -Name NuGet -Force
 	Install-Module -Name PowerShellGet -Force
 	Install-Module PSReadLine
+	Install-Module PSFzf
 	Install-Module posh-git
 }
 else {

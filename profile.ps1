@@ -85,3 +85,5 @@ Set-PSReadlineKeyHandler -Key DownArrow -ScriptBlock {
 	[Microsoft.PowerShell.PSConsoleReadLine]::HistorySearchForward()
 	[Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
 }
+
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
