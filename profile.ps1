@@ -118,15 +118,17 @@ function color_list() {
 	}
 }
 
-# Up and Down arrows go back through history
-Set-PSReadlineKeyHandler -Key UpArrow -ScriptBlock {
-	[Microsoft.PowerShell.PSConsoleReadLine]::HistorySearchBackward()
-	[Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
-}
-Set-PSReadlineKeyHandler -Key DownArrow -ScriptBlock {
-	[Microsoft.PowerShell.PSConsoleReadLine]::HistorySearchForward()
-	[Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
-}
+# Default to a more bash like experience
+Set-PSReadLineOption -EditMode Emacs
+
+# Disable beeps
+Set-PSReadlineOption -BellStyle None
+
+# Additional keybindings (check collisions against Get-PSReadLineKeyHandler)
+Set-PSReadLineKeyHandler -Chord 'Ctrl+Backspace' -Function BackwardKillWord
+Set-PSReadLineKeyHandler -Chord 'Ctrl+Delete' -Function KillWord
+Set-PSReadLineKeyHandler -Chord 'Ctrl+LeftArrow' -Function BackwardWord
+Set-PSReadLineKeyHandler -Chord 'Ctrl+RightArrow' -Function ForwardWord
 
 # Bind keys to fzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'

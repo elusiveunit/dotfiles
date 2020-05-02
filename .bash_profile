@@ -107,11 +107,6 @@ if is_mac; then
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
 
-	# Incremental searching with up and down, e.g. type 'ssh <up>' to get the
-	# last 'ssh' command used.
-	"\e[A": history-search-backward
-	"\e[B": history-search-forward
-
 	# Use curl from Homebrew.
 	#export PATH="/usr/local/opt/curl/bin:$PATH"
 

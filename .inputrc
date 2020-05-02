@@ -27,3 +27,21 @@ set skip-completed-text on
 set input-meta on
 set output-meta on
 set convert-meta off
+
+# Incremental searching with up and down, e.g. type 'ssh <up>' to get the
+# last 'ssh' command used.
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Use Ctrl-left and Ctrl-right for word moving.
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+# Ctrl-backspace/delete to remove words (can't get former to work though)
+# "\C-h": backward-kill-word
+# "\C-h": "\C-W"
+"\e[3;5~": kill-word
