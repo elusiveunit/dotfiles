@@ -1,6 +1,7 @@
 # PowerShell profile
 
 function Prompt {
+	# ---------- Line 1 ----------
 	Write-Host "" # Newline
 	Write-Host -NoNewline ([char]::ConvertFromUtf32(9484)) # ┌
 	Write-Host -NoNewline ([char]::ConvertFromUtf32(9472)) # ─
@@ -10,6 +11,7 @@ function Prompt {
 	Write-Host -NoNewline " in "
 	Write-Host -NoNewline "$(Get-Location)" -ForegroundColor Green
 
+	# Git info
 	$gitStatus = Get-GitStatus
 	if ($gitStatus) {
 		Write-Host -NoNewline " on "
@@ -50,6 +52,39 @@ function Prompt {
 		}
 	}
 
+	# Execution time
+	if ($hist = Get-History) {
+		$time = ($hist[-1].EndExecutionTime - $hist[-1].StartExecutionTime).Totalmilliseconds
+		$ms = [math]::Round($time % 1000)
+		$s = [math]::Round(($time / 1000) % 60)
+		$m = [math]::Round(($time / 60000) % 60)
+		$h = [math]::Round($time / 3600000)
+
+		$executionTime = ''
+		if ($h -gt 0) {
+			$executionTime = "${h}h${m}m"
+		}
+		elseif ($m -gt 0) {
+			$executionTime = "${m}m${s}s"
+		}
+		elseif ($s -gt 0) {
+			if ($ms -ge 100) {
+				$executionTime = "${s}.${ms}s"
+			}
+			else {
+				$executionTime = "${s}s"
+			}
+		}
+		# elseif ($ms -gt 0) {
+		# 	$executionTime = "${ms}ms"
+		# }
+
+		if ($executionTime) {
+			Write-Host " $executionTime" -NoNewline -ForegroundColor DarkGray
+		}
+	}
+
+	# ---------- Line 2 ----------
 	Write-Host "" # Newline
 	Write-Host -NoNewline ([char]::ConvertFromUtf32(9492)) # └
 	Write-Host -NoNewline ([char]::ConvertFromUtf32(9472)) # ─
@@ -61,20 +96,27 @@ function Prompt {
 }
 
 # Navigation shortcuts
-function upOneDir { Set-Location .. }
-function upTwoDir { Set-Location ../.. }
-function upThreeDir { Set-Location ../../.. }
-function upFourDir { Set-Location ../../../.. }
-Set-Alias -Name '..' upOneDir
-Set-Alias -Name '...' upTwoDir
-Set-Alias -Name '....' upThreeDir
-Set-Alias -Name '.....' upFourDir
-function dev { Set-Location 'C:\_\dev' }
+function _upOne { Set-Location .. }
+function _upTwo { Set-Location ../.. }
+function _upThree { Set-Location ../../.. }
+function _upFour { Set-Location ../../../.. }
+Set-Alias -Name '..' _upOne
+Set-Alias -Name '...' _upTwo
+Set-Alias -Name '....' _upThree
+Set-Alias -Name '.....' _upFour
 
 Set-Alias -Name 'c' cls
 Set-Alias -Name 'g' git
 Set-Alias -Name 'lsa' dir
-Set-Alias -Name 'cd..' upOneDir
+Set-Alias -Name 'cd..' _upOne
+
+function dev { Set-Location 'C:\_\dev' }
+
+function color_list() {
+	foreach ($color in [Enum]::GetValues([ConsoleColor])) {
+		Write-Host "$color" -Foreground $color
+	}
+}
 
 # Up and Down arrows go back through history
 Set-PSReadlineKeyHandler -Key UpArrow -ScriptBlock {
@@ -86,4 +128,5 @@ Set-PSReadlineKeyHandler -Key DownArrow -ScriptBlock {
 	[Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
 }
 
+# Bind keys to fzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'

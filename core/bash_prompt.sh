@@ -8,7 +8,7 @@
 # It also adds branch status.
 # Inspired by https://github.com/dahlbyk/posh-git (at the time of writing,
 # Get-GitStatus in src/GitUtils.ps1).
-prompt_git_status_fast() {
+_prompt_git_status_fast() {
 	local status_flags=''
 
 	# Is the current directory a Git repository?
@@ -82,7 +82,7 @@ prompt_git_status_fast() {
 		return
 	fi
 }
-prompt_git_status() {
+_prompt_git_status() {
 	local status_flags=''
 
 	# Is the current directory a Git repository?
@@ -124,6 +124,46 @@ prompt_git_status() {
 	fi
 }
 
+# Execution time
+# https://stackoverflow.com/q/1862510
+# -----------------------------------------------------------------------------
+function _prompt_timer_now {
+	date +%s%N
+}
+
+function prompt_timer_start {
+	_prompt_timer_start=${_prompt_timer_start:-$(_prompt_timer_now)}
+}
+
+function _prompt_timer_stop {
+	local delta_us=$((($(_prompt_timer_now) - $_prompt_timer_start) / 1000))
+	local us=$((delta_us % 1000))
+	local ms=$(((delta_us / 1000) % 1000))
+	local s=$(((delta_us / 1000000) % 60))
+	local m=$(((delta_us / 60000000) % 60))
+	local h=$((delta_us / 3600000000))
+
+	if [ $h -gt 0 ]; then
+		prompt_timer_time=${h}h${m}m
+	elif [ $m -gt 0 ]; then
+		prompt_timer_time=${m}m${s}s
+	elif [ $s -gt 0 ]; then
+		if [ $ms -ge 100 ]; then
+			prompt_timer_time=${s}.$(($ms / 100))s
+		else
+			prompt_timer_time=${s}s
+		fi
+	# elif [ $ms -ge 100 ]; then
+	# 	prompt_timer_time=${ms}ms
+	# elif [ $ms -gt 0 ]; then
+	# 	prompt_timer_time=${ms}.$((us / 100))ms
+	# else
+	# 	prompt_timer_time=${us}us
+	fi
+
+	unset _prompt_timer_start
+}
+
 # Set the prompt
 # Uses unicode characters (→ ┌ └ ─) in hex escape sequences. In a UTF-8 enabled
 # prompt, do 'echo → | hexdump -C' and use the first three pairs. Example:
@@ -132,18 +172,24 @@ prompt_git_status() {
 set_bash_prompt() {
 	local exit_code="$?" # Must be first
 
+	_prompt_timer_stop
+
 	if is_windows; then
 		PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]' # set window title
 	else
 		PS1=''
 	fi
-	PS1+="\[${white}\]\n"                    # newline
+
+	# ---------- Line 1 ----------
+	PS1+="\[${white}\]\n"                    # newline, set white
 	PS1+=$'\xe2\x94\x8c\xe2\x94\x80'         # ┌ and ─
 	PS1+="\[${Bpurple}\]\u"                  # username
 	# PS1+="\[${white}\] at "                  # at
 	# PS1+="\[${Byellow}\]\h"                  # host
 	PS1+="\[${white}\] in "                  # in
 	PS1+="\[${Bgreen}\]\w"                   # working directory
+
+	# Git
 	if is_windows; then
 		# From the default git bash prompt
 		if test -z "$WINELOADERNOEXEC"; then
@@ -154,18 +200,27 @@ set_bash_prompt() {
 			if test -f "$COMPLETION_PATH/git-prompt.sh"; then
 				. "$COMPLETION_PATH/git-completion.bash"
 				. "$COMPLETION_PATH/git-prompt.sh"
-				PS1+='`__git_ps1 "\[${white}\] on \[${cyan}\]%s"`' # git branch prefixed with 'on'
+				PS1+='`__git_ps1 "\[${white}\] on \[${Bcyan}\]%s"`' # git branch prefixed with 'on'
 				PS1+="\[${Bred}\]"
-				PS1+='`prompt_git_status_fast`' # [git status]
+				PS1+='`_prompt_git_status_fast`' # [git status]
 			fi
 		fi
 	else
-		PS1+="\$(__git_ps1 \"\[${white}\] on \[${cyan}\]%s\")"  # on git branch
-		PS1+="\[${Bred}\]\$(prompt_git_status)"                 # [git status]
+		PS1+="\$(__git_ps1 \"\[${white}\] on \[${Bcyan}\]%s\")"  # on git branch
+		PS1+="\[${Bred}\]\$(_prompt_git_status_fast)"            # [git status]
 	fi
+
+	# Exit code if not 0
 	if [ "$exit_code" != 0 ]; then
-		PS1+=" \[${Byellow}\]$exit_code"    # exit code if not 0
+		PS1+=" \[${Byellow}\]$exit_code"
 	fi
+
+	# Execution time
+	if [ "$prompt_timer_time" ]; then
+		PS1+=" \[${Bblack}\]$prompt_timer_time"
+	fi
+
+	# ---------- Line 2 ----------
 	PS1+="\[${white}\]\n"                # newline, set white
 	PS1+=$'\xe2\x94\x94\xe2\x94\x80[\A]' # └ and ─, time in [HH:MM]
 	PS1+=$'\xe2\x86\x92 '                # →

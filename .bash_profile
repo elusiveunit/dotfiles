@@ -38,9 +38,18 @@ for file in "$DOTFILES_DIR"/optional/{secrets,TEMP}; do
 done
 unset file
 
+# Prompt
+# -----------------------------------------------------------------------------
+trap 'prompt_timer_start' DEBUG
+
+if [ "$PROMPT_COMMAND" == "" ]; then
+  PROMPT_COMMAND="set_bash_prompt"
+else
+  PROMPT_COMMAND="set_bash_prompt; $PROMPT_COMMAND"
+fi
+
 # Various options
 # -----------------------------------------------------------------------------
-export PROMPT_COMMAND="set_bash_prompt;$PROMPT_COMMAND"
 
 # Turn off beep.
 set bell-style none
