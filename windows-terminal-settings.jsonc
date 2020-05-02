@@ -30,7 +30,7 @@
 			{
 					// Put settings here that you want to apply to all profiles.
 					"acrylicOpacity": 0.95,
-					"colorScheme" : "ChallengerDeepFork",
+					"colorScheme" : "ElusiveChallengerDeep",
 					"fontFace" : "Consolas",
 					"fontSize" : 12,
 					"startingDirectory": "C:\\_\\dev",
@@ -71,48 +71,6 @@
 	// https://atomcorp.github.io/themes/
 	"schemes": [
 			{
-					"name": "Afterglow",
-					"black": "#151515",
-					"red": "#ac4142",
-					"green": "#7e8e50",
-					"yellow": "#e5b567",
-					"blue": "#6c99bb",
-					"purple": "#9f4e85",
-					"cyan": "#7dd6cf",
-					"white": "#d0d0d0",
-					"brightBlack": "#505050",
-					"brightRed": "#ac4142",
-					"brightGreen": "#7e8e50",
-					"brightYellow": "#e5b567",
-					"brightBlue": "#6c99bb",
-					"brightPurple": "#9f4e85",
-					"brightCyan": "#7dd6cf",
-					"brightWhite": "#f5f5f5",
-					"background": "#111111",
-					"foreground": "#d0d0d0"
-			},
-			{
-					"name": "Argonaut",
-					"black": "#232323",
-					"red": "#ff000f",
-					"green": "#8ce10b",
-					"yellow": "#ffb900",
-					"blue": "#008df8",
-					"purple": "#6d43a6",
-					"cyan": "#00d8eb",
-					"white": "#ffffff",
-					"brightBlack": "#444444",
-					"brightRed": "#ff2740",
-					"brightGreen": "#abe15b",
-					"brightYellow": "#ffd242",
-					"brightBlue": "#0092ff",
-					"brightPurple": "#9a5feb",
-					"brightCyan": "#67fff0",
-					"brightWhite": "#ffffff",
-					"background": "#0e1019",
-					"foreground": "#fffaf4"
-			},
-			{
 					"name": "ChallengerDeep",
 					"black": "#141228",
 					"red": "#ff5458",
@@ -134,8 +92,8 @@
 					"foreground": "#cbe1e7"
 			},
 			{
-					"name": "ChallengerDeepFork",
-					"black": "#100e1f",
+					"name": "ElusiveChallengerDeep",
+					"black": "#434157",
 					"red": "#ff5458",
 					"green": "#4bcf89",
 					"yellow": "#fcee6d",
@@ -143,7 +101,7 @@
 					"purple": "#be6fff",
 					"cyan": "#4ee0eb",
 					"white": "#a6b3cc",
-					"brightBlack": "#74739b",
+					"brightBlack": "#747488",
 					"brightRed": "#ff8080",
 					"brightGreen": "#95ffa4",
 					"brightYellow": "#ffe9aa",
@@ -153,27 +111,6 @@
 					"brightWhite": "#cbe3e7",
 					"background": "#1b192c",
 					"foreground": "#cbe1e7"
-			},
-			{
-					"name": "Dracula",
-					"black": "#000000",
-					"red": "#ff5555",
-					"green": "#50fa7b",
-					"yellow": "#f1fa8c",
-					"blue": "#bd93f9",
-					"purple": "#ff79c6",
-					"cyan": "#8be9fd",
-					"white": "#bbbbbb",
-					"brightBlack": "#555555",
-					"brightRed": "#ff5555",
-					"brightGreen": "#50fa7b",
-					"brightYellow": "#f1fa8c",
-					"brightBlue": "#bd93f9",
-					"brightPurple": "#ff79c6",
-					"brightCyan": "#8be9fd",
-					"brightWhite": "#ffffff",
-					"background": "#1e1f29",
-					"foreground": "#f8f8f2"
 			}
 	],
 
