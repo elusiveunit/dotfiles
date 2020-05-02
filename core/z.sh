@@ -1,5 +1,5 @@
-# https://github.com/rupa/z/
-# Updated 2020-05-01
+# https://raw.githubusercontent.com/rupa/z/master/z.sh
+# Updated 2020-05-02
 # -----------------------------------------------------------------------------
 
 # Copyright (c) 2009 rupa deadwyler. Licensed under the WTFPL license, Version 2

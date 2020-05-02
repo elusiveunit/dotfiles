@@ -270,21 +270,6 @@ win_link() {
 #  Utilities
 # =============================================================================
 
-# Update z.sh to the latest master version
-# -----------------------------------------------------------------------------
-update_z() {
-	repo_path="https://github.com/rupa/z/"
-	raw_path="https://raw.githubusercontent.com/rupa/z/master/z.sh"
-	file_path="$DOTFILES_DIR/core/z.sh"
-	cur_date=$(date +'%Y-%m-%d')
-	echo "# $repo_path" > "$file_path"
-	echo "# Updated $cur_date" >> "$file_path"
-	echo "# -----------------------------------------------------------------------------" >> "$file_path"
-	echo "" >> "$file_path"
-	curl -s "$raw_path" >> "$file_path"
-	print_green "Updated $file_path from latest master at $repo_path"
-}
-
 # Run Yeoman with color
 # -----------------------------------------------------------------------------
 yoc() {
@@ -557,6 +542,34 @@ reload_apache_sajty() {
 # =============================================================================
 #  Misc. local
 # =============================================================================
+
+# Update manually downloaded parts to the latest master versions
+# -----------------------------------------------------------------------------
+update_remote_scripts() {
+	declare -A remote_scripts=(
+		["$DOTFILES_DIR/core/z.sh"]="https://raw.githubusercontent.com/rupa/z/master/z.sh"
+		["$DOTFILES_DIR/core/fzf-keybindings.sh"]="https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash"
+		["$DOTFILES_DIR/_functions/prettyping.sh"]="https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping"
+		["$DOTFILES_DIR/_functions/tldr.sh"]="https://raw.githubusercontent.com/raylee/tldr/master/tldr"
+	)
+	local cur_date=$(date +'%Y-%m-%d')
+	for file_path in "${!remote_scripts[@]}"; do
+		remote_path="${remote_scripts[$file_path]}"
+
+		# Scripts in _functions probably have a shebang that should be first.
+		if [[ $file_path != *"_functions"* ]]; then
+			echo "# $remote_path" > "$file_path"
+			echo "# Updated $cur_date" >> "$file_path"
+			echo "# -----------------------------------------------------------------------------" >> "$file_path"
+			echo "" >> "$file_path"
+			curl -s "$remote_path" >> "$file_path"
+		else
+			curl -s "$remote_path" > "$file_path"
+		fi
+		print_green "Updated $file_path from latest master at $remote_path"
+	done
+}
+
 www() {
 	cd "$SITESPATH/${1}"
 }
