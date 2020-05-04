@@ -33,7 +33,7 @@ done
 for file in "$DOTFILES_DIR"/optional/{secrets,TEMP}; do
 	if [ "${file: -4}" != "TEMP" ]; then
 		source "${file}-default.sh"
-		[ -r "${file}.sh" ] && [ -f "${file}.sh" ] && source "${file}.sh";
+		[ -r "${file}.sh" ] && [ -f "${file}.sh" ] && source "${file}.sh"
 	fi
 done
 unset file
@@ -54,18 +54,22 @@ fi
 # Turn off beep.
 set bell-style none
 
+# cd when running a directory as a command. Also works with globs, e.g. `**/baz`
+# will enter `./foo/bar/baz`.
+shopt -s autocd
+
 # Autocorrect typos in path names when using `cd`.
 shopt -s cdspell
+
+# Enable recursive globbing (`**` matching all files and zero or more
+# directories and subdirectories).
+shopt -s globstar
 
 # Case-insensitive globbing (used in pathname expansion).
 shopt -s nocaseglob
 
-# Enable some Bash 4 features when possible:
-# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
-# * Recursive globbing, e.g. `echo **/*.txt`
-for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null;
-done;
+# Don't autocomplete an empty prompt since it takes a long time.
+shopt -s no_empty_cmd_completion
 
 # Increase Bash history size, default is 500.
 export HISTSIZE=5000
@@ -73,7 +77,7 @@ export HISTFILESIZE="${HISTSIZE}"
 # Prevent duplicates in command history.
 export HISTCONTROL=ignoredups:erasedups
 # Append to the Bash history file, rather than overwriting it.
-shopt -s histappend;
+shopt -s histappend
 
 # Prefer US English and UTF-8.
 export LANG=en_US.UTF-8
@@ -113,11 +117,11 @@ if is_mac; then
 	# Go to www folder if starting in the home directory. If starting somewhere
 	# else, it probably means the shell was invoked there and the path shouldn't
 	# be overridden.
-	current=$(pwd)
-	if [ "$current" == "$HOME" ]; then
+	current_location=$(pwd)
+	if [ "$current_location" == "$HOME" ]; then
 		cd "$SITESPATH"
 	fi
-	unset current
+	unset current_location
 
 # Windows only
 # -----------------------------------------------------------------------------
