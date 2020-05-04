@@ -54,11 +54,12 @@ function Prompt {
 
 	# Execution time
 	if ($hist = Get-History) {
-		$time = ($hist[-1].EndExecutionTime - $hist[-1].StartExecutionTime).Totalmilliseconds
-		$ms = [math]::Round($time % 1000)
-		$s = [math]::Round(($time / 1000) % 60)
-		$m = [math]::Round(($time / 60000) % 60)
-		$h = [math]::Round($time / 3600000)
+		$deltaMs = ($hist[-1].EndExecutionTime - $hist[-1].StartExecutionTime).Totalmilliseconds
+		$deltaS = $deltaMs / 1000
+		$ms = [math]::Round($deltaMs % 1000)
+		$s = [math]::Round($deltaS % 60)
+		$m = [math]::Round(($deltaS / 60) % 60)
+		$h = [math]::Round($deltaS / 3600)
 
 		$executionTime = ''
 		if ($h -gt 0) {

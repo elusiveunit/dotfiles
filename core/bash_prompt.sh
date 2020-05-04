@@ -136,13 +136,14 @@ function prompt_timer_start {
 }
 
 function _prompt_timer_stop {
-	local delta_us=$((($(_prompt_timer_now) - $_prompt_timer_start) / 1000))
-	local us=$((delta_us % 1000))
-	local ms=$(((delta_us / 1000) % 1000))
-	local s=$(((delta_us / 1000000) % 60))
-	local m=$(((delta_us / 60000000) % 60))
-	local h=$((delta_us / 3600000000))
+	local delta_ms=$((($(_prompt_timer_now) - $_prompt_timer_start) / 1000000))
+	local delta_s=$((delta_ms / 1000))
+	local ms=$((delta_ms % 1000))
+	local s=$((delta_s % 60))
+	local m=$(((delta_s / 60) % 60))
+	local h=$((delta_s / 3600))
 
+	prompt_timer_time=''
 	if [ $h -gt 0 ]; then
 		prompt_timer_time=${h}h${m}m
 	elif [ $m -gt 0 ]; then
@@ -153,12 +154,10 @@ function _prompt_timer_stop {
 		else
 			prompt_timer_time=${s}s
 		fi
-	# elif [ $ms -ge 100 ]; then
-	# 	prompt_timer_time=${ms}ms
-	# elif [ $ms -gt 0 ]; then
-	# 	prompt_timer_time=${ms}.$((us / 100))ms
+	elif [ $ms -gt 500 ]; then
+		prompt_timer_time=${ms}ms
 	# else
-	# 	prompt_timer_time=${us}us
+	# 	prompt_timer_time=${ms}ms
 	fi
 
 	unset _prompt_timer_start
