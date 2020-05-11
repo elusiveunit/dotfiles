@@ -128,7 +128,11 @@ _prompt_git_status() {
 # https://stackoverflow.com/q/1862510
 # -----------------------------------------------------------------------------
 function _prompt_timer_now {
-	date +%s%N
+	if is_mac; then
+		gdate +%s%N
+	else
+		date +%s%N
+	fi
 }
 
 function prompt_timer_start {

@@ -3,7 +3,116 @@
 # 	path = /dotfiles-dir/.gitconfig
 
 [core]
-	autocrlf = false
-	fscache = true
+    autocrlf = false
+    filemode = false
+    fscache = true
+    pager = diff-so-fancy | less --tabs=2 -RFX
+[advice]
+    statusHints = false
+[branch]
+    autosetupmerge = true
+[diff]
+    mnemonicprefix = true
+[gc]
+    auto = 256
+[push]
+    default = matching
+[color]
+    ui = always
+    branch = always
+    status = always
+    diff = always
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "status"]
+    added = green bold
+    changed = cyan bold
+    untracked = yellow bold
+    branch = blue
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red
+    new = green
+    whitespace = white reverse
 [alias]
-	s = status
+    a = add
+    ai = add -i
+    ap = add -p
+    aa = add --all
+    # -------------------- #
+    b = branch
+    br = branch -r
+    ba = branch -a
+    bd = branch -d
+    bdo = push --delete origin
+    bdb = "!f() { branch=$1; git push --delete origin $1; git branch -d $1; }; f"
+    # -------------------- #
+    c = commit
+    ca = commit -a
+    cm = commit -m
+    cam = commit -am
+    cfix = commit --amend -m
+    # -------------------- #
+    co = checkout
+    com = checkout master
+    coa = checkout -- .
+    # -------------------- #
+    re = reset
+    reh = reset --hard
+    # -------------------- #
+    d = diff
+    dc = diff --cached
+    # -------------------- #
+    f = fetch
+    fo = fetch origin
+    # -------------------- #
+    l = log
+    lo = log --oneline
+    lp = log -p
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    # -------------------- #
+    ls = ls-files
+    # -------------------- #
+    ps = push
+    psd = push --follow-tags origin dev
+    pss = push --follow-tags origin staging
+    psm = push --follow-tags origin master
+    psa = push --all --follow-tags origin
+    # -------------------- #
+    pl = pull
+    up = "!git fetch origin && git rebase -p origin/$(git cur-branch)"
+    spp = "!git stash && git pull && git stash pop"
+    # -------------------- #
+    s = status
+    ss = status --short
+    sc = "!git status | grep 'ändrad:' | wc -l"
+    sac = diff --cached --stat
+    # -------------------- #
+    st = stash
+    sta = stash save --include-untracked
+    stl = stash list
+    stp = stash pop
+    std = stash drop
+    stc = stash clear
+    save = "!git stash drop; git stash save --include-untracked && git stash apply"
+    # -------------------- #
+    rao = remote add origin
+    rso = remote set-url origin
+    # -------------------- #
+    uns = reset HEAD --
+    unstage = reset HEAD --
+    unc = reset --soft HEAD~1
+    uncommit = reset --soft HEAD~1
+    unc-hard = reset HEAD~1
+    uncommit-hard = reset HEAD~1
+    discard-local = checkout -- .
+    fm = config core.filemode false
+    merge-over = merge -s recursive -X theirs
+    sync-origin = "!f() { git fetch --tags && git fetch --all && git reset --hard origin/master; }; f"
+    checkout-tag = "!f() { tag=$(git tag | tail -1); tag=${1-$tag}; git checkout tags/${tag}; }; f"
+    cur-branch = rev-parse --abbrev-ref HEAD
+    mm = "!git checkout master && git merge dev && git checkout dev"

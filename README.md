@@ -8,8 +8,8 @@ Assumes a bash shell unless otherwise noted.
 
 1. Install [Homebrew](https://brew.sh/).
 2. Install Git via Homebrew and clone this repo.
-3. Run `./init.sh` for core configuration.
-4. Run [`brew bundle`](https://github.com/Homebrew/homebrew-bundle) to install packages specified in Brewfile.
+3. Run [`brew bundle`](https://github.com/Homebrew/homebrew-bundle) to install packages specified in Brewfile.
+4. Run `./init.sh` for core configuration.
 
 ## Windows
 
@@ -17,8 +17,8 @@ Run these steps in an elevated PowerShell prompt.
 
 1. Install [Scoop](https://scoop.sh/).
 2. Install Git via Scoop and clone this repo.
-3. Run `./init.ps1` for core configuration.
-4. Run `./Scoopfile.ps1` to install packages specified there.
+3. Run `./Scoopfile.ps1` to install packages specified there.
+4. Run `./init.ps1` for core configuration.
 
 ## Mac and Windows
 
