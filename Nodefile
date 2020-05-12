@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 npm i -g \
+	diff-so-fancy \
+	fkill-cli \
+	gzip-size-cli \
 	npm-check \
 	npm-check-updates \
+	pretty-bytes-cli \
 	trash-cli
