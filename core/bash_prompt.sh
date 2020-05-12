@@ -177,10 +177,11 @@ set_bash_prompt() {
 
 	_prompt_timer_stop
 
+	# Set window/tab title
 	if is_windows; then
-		PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]' # set window title
+		PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]'
 	else
-		PS1=''
+		PS1='\033]0;${PWD/#$HOME/\~}\007'
 	fi
 
 	# ---------- Line 1 ----------
