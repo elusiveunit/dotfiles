@@ -38,6 +38,7 @@ alias kcaf="kubectl apply -f"
 # manage shortcuts
 alias mn="manage"
 alias mnl="manage -e local"
+alias mnd="manage -e development"
 alias mns="manage -e staging"
 alias mnp="manage -e production"
 

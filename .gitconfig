@@ -89,7 +89,6 @@
     # -------------------- #
     s = status
     ss = status --short
-    sc = "!git status | grep 'ändrad:' | wc -l"
     sac = diff --cached --stat
     # -------------------- #
     st = stash
@@ -98,7 +97,6 @@
     stp = stash pop
     std = stash drop
     stc = stash clear
-    save = "!git stash drop; git stash save --include-untracked && git stash apply"
     # -------------------- #
     rao = remote add origin
     rso = remote set-url origin
@@ -116,3 +114,4 @@
     checkout-tag = "!f() { tag=$(git tag | tail -1); tag=${1-$tag}; git checkout tags/${tag}; }; f"
     cur-branch = rev-parse --abbrev-ref HEAD
     mm = "!git checkout master && git merge dev && git checkout dev"
+    mmp = "!git mm && git psa"
