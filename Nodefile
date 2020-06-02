@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+npm config set save-prefix='~'
+
 npm i -g \
 	diff-so-fancy \
 	fkill-cli \
