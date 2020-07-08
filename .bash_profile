@@ -118,6 +118,11 @@ if is_mac; then
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
 
+	# Completion.
+	# Generate manage completion on every start to keep it updated.
+	manage completion bash > /usr/local/etc/bash_completion.d/manage_bash_completion.sh
+	[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
 	# Use curl from Homebrew.
 	#export PATH="/usr/local/opt/curl/bin:$PATH"
 
