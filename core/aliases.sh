@@ -1,3 +1,5 @@
+# NOTE! Aliases with bash completion are defined in a separate file.
+
 # Navigation shortcuts
 alias ..="cd .."
 alias ...="cd ../.."
@@ -34,13 +36,6 @@ alias kc="kubectl"
 alias kcs="kubectl --namespace staging"
 alias kcp="kubectl --namespace production"
 alias kcaf="kubectl apply -f"
-
-# manage shortcuts
-alias mn="manage"
-alias mnl="manage -e local"
-alias mnd="manage -e development"
-alias mns="manage -e staging"
-alias mnp="manage -e production"
 
 # Shell script and function shortcuts
 alias gitma="git_merge_all"

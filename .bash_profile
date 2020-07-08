@@ -122,6 +122,7 @@ if is_mac; then
 	# Generate manage completion on every start to keep it updated.
 	manage completion bash > /usr/local/etc/bash_completion.d/manage_bash_completion.sh
 	[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+	source "$DOTFILES_DIR"/core/aliases_completion.sh
 
 	# Use curl from Homebrew.
 	#export PATH="/usr/local/opt/curl/bin:$PATH"

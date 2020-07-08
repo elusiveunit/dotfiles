@@ -41,6 +41,48 @@ cert_dates() {
 	echo | openssl s_client -connect "$1":443 -servername "$1" 2>/dev/null | openssl x509 -noout -dates
 }
 
+# Add a bash alias that includes completion for the original command.
+# Inspired by https://superuser.com/a/437508.
+# -----------------------------------------------------------------------------
+alias_with_completion() {
+	if [ $# -lt 2 ]; then
+		echo "Usage: alias_with_completion <alias> <command> [<alias content>]"
+		echo "       alias_with_completion mn manage"
+		echo "       alias_with_completion mnl manage \"manage -e local\""
+		return 1
+	fi
+
+  local alias_name="$1"
+  local command_name="$2"
+  local alias_content="$3"
+	if [ -z "$alias_content" ]; then
+		alias_content="$command_name"
+	fi
+
+	alias "$alias_name"="$alias_content"
+
+	local existing_completion=$(complete -p | grep "$command_name")
+	if [ -n "$existing_completion" ]; then
+		local completion_option=$(echo "$existing_completion" | sed -Ene 's/.* -o ([^ ]*).*/\1/p')
+		if [ -z "$completion_option" ]; then
+			completion_option="default"
+		fi
+		local completion_function=$(echo "$existing_completion" | sed -Ene 's/.* -F ([^ ]*).*/\1/p')
+		local arg_count=($alias_content); arg_count=${#arg_count[@]}
+		local wrapper_name="_alias_completion_${alias_name}"
+		local new_function="${wrapper_name}() {
+			(( COMP_CWORD += $arg_count ))
+			COMP_WORDS=($alias_content \${COMP_WORDS[@]:1})
+			(( COMP_POINT -= \${#COMP_LINE} ))
+			COMP_LINE=\${COMP_LINE/$alias_name/$alias_content}
+			(( COMP_POINT += \${#COMP_LINE} ))
+			$completion_function
+		}"
+		eval "$new_function"
+		complete -o "$completion_option" -F "$wrapper_name" "$alias_name"
+	fi
+}
+
 
 
 # =============================================================================
