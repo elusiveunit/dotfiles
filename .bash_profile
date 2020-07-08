@@ -9,6 +9,23 @@ else
 	DOTFILES_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 fi
 
+# Set core paths
+if is_mac; then
+	export DEVELOPMENTPATH="$HOME/dev"
+	export SITESPATH="$HOME/www"
+	export GOLANGPATH="$DEVELOPMENTPATH/go"
+	export GOPATH="$HOME/go"
+	export DOTFILESPATH="$DEVELOPMENTPATH/dotfiles" # Company version
+	export PYTHONPATH="$DEVELOPMENTPATH"
+	export DEVOPSPATH="$DEVELOPMENTPATH/devops"
+	export ANSIBLEPATH="$DEVOPSPATH/ansible"
+elif is_windows; then
+	export DEVELOPMENTPATH="/c/_/dev"
+	export SITESPATH="$DEVELOPMENTPATH/www"
+	export GOLANGPATH="$DEVELOPMENTPATH/go"
+	export GOPATH="$HOME/go"
+fi
+
 # Source files
 # -----------------------------------------------------------------------------
 if is_mac; then
@@ -94,16 +111,6 @@ export REACT_EDITOR=code
 # Mac only
 # -----------------------------------------------------------------------------
 if is_mac; then
-	# Paths
-	export DEVELOPMENTPATH="$HOME/dev"
-	export SITESPATH="$HOME/www"
-	export GOLANGPATH="$DEVELOPMENTPATH/go"
-	export GOPATH="$HOME/go"
-	export DOTFILESPATH="$DEVELOPMENTPATH/dotfiles" # Company version
-	export PYTHONPATH="$DEVELOPMENTPATH"
-	export DEVOPSPATH="$DEVELOPMENTPATH/devops"
-	export ANSIBLEPATH="$DEVOPSPATH/ansible"
-
 	# Misc.
 	export ANDROID_HOME="$HOME/Library/Android/sdk/"
 	export PATH="$DOTFILESPATH/bin:$GOPATH/bin:$DEVELOPMENTPATH/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/sbin:$DEVOPSPATH/bin:~/.fastlane/bin":$PATH
@@ -126,12 +133,6 @@ if is_mac; then
 # Windows only
 # -----------------------------------------------------------------------------
 elif is_windows; then
-	# Paths
-	export DEVELOPMENTPATH="/c/_/dev"
-	export SITESPATH="$DEVELOPMENTPATH/www"
-	export GOLANGPATH="$DEVELOPMENTPATH/go"
-	export GOPATH="$HOME/go"
-
 	# The Git and MSYS versions of less do not correctly interpret colors on
 	# Windows: https://github.com/sharkdp/bat#using-bat-on-windows
 	export BAT_PAGER=""
