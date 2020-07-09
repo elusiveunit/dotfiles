@@ -113,7 +113,7 @@ export REACT_EDITOR=code
 if is_mac; then
 	# Misc.
 	export ANDROID_HOME="$HOME/Library/Android/sdk/"
-	export PATH="$DOTFILESPATH/bin:$GOPATH/bin:$DEVELOPMENTPATH/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/sbin:$DEVOPSPATH/bin:~/.fastlane/bin":$PATH
+	export PATH="$GOPATH/bin:$DEVELOPMENTPATH/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/sbin:~/.fastlane/bin":$PATH
 
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
