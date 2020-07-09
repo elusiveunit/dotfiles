@@ -101,6 +101,10 @@ if is_mac; then
 	alias gitinspector="export LC_ALL=en_US.UTF-8;export LANG=en_US.UTF-8;~/projects/gitinspector/gitinspector.py"
 	alias tftp_server="ptftpd -D -v -p 6969 en0 tftp-test"
 
+	# Default to Homebrew Python
+	alias python="/usr/local/bin/python3"
+	alias pip="python -m pip"
+
 	# Recursively delete .DS_Store files
 	alias dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 

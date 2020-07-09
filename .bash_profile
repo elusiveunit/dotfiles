@@ -125,7 +125,7 @@ if is_mac; then
 	source "$DOTFILES_DIR"/core/aliases_completion.sh
 
 	# Use curl from Homebrew.
-	#export PATH="/usr/local/opt/curl/bin:$PATH"
+	export PATH="/usr/local/opt/curl/bin:$PATH"
 
 	# Go to www folder if starting in the home directory. If starting somewhere
 	# else, it probably means the shell was invoked there and the path shouldn't
