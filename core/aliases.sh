@@ -102,8 +102,8 @@ if is_mac; then
 	alias tftp_server="ptftpd -D -v -p 6969 en0 tftp-test"
 
 	# Default to Homebrew Python
-	alias python="/usr/local/bin/python3"
-	alias pip="python -m pip"
+	# alias python="/usr/local/bin/python3"
+	# alias pip="python -m pip"
 
 	# Recursively delete .DS_Store files
 	alias dsstore="find . -name '*.DS_Store' -type f -ls -delete"

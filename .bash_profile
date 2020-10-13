@@ -127,6 +127,9 @@ if is_mac; then
 	# Use curl from Homebrew.
 	export PATH="/usr/local/opt/curl/bin:$PATH"
 
+	# Add pyenv shim to PATH. SHOULD ALWAYS BE BELOW OTHER PATH CONFIG.
+	eval "$(pyenv init -)"
+
 	# Go to www folder if starting in the home directory. If starting somewhere
 	# else, it probably means the shell was invoked there and the path shouldn't
 	# be overridden.
