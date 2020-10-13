@@ -629,8 +629,12 @@ pinit() {
 		echo "}" >> .vscode/settings.json
 		echo "Created .vscode/settings.json"
 	else
-		echo ".vscode/settings.json already exists, manually add \"$black_path\" under the \"python.formatting.blackPath\" key if it doesn't exist"
+		echo ".vscode/settings.json already exists, manually add \"python.formatting.blackPath\": \"$black_path\" if it doesn't exist"
 	fi
+}
+# Alias
+black_init() {
+	pinit
 }
 
 # Link/unlink dev js-common
