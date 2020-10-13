@@ -24,6 +24,7 @@ alias nr="npm run"
 alias please="sudo"
 
 # Docker shortcuts
+alias dr="docker"
 alias dc="docker-compose"
 alias dcu="docker-compose up"
 alias dcd="docker-compose down"
