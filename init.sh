@@ -13,10 +13,10 @@ if is_windows; then
 fi
 
 while true; do
-	read -p "This will replace any existing .bashrc, .bash_profile and .inputrc with symlinks, continue? [y/N] " yn
+	read -p "Replace existing dotfiles (.bashrc/.bash_profile/.inputrc/.ackrc/.npmrc) with symlinks? [y/N] " yn
 	case $yn in
 		[Yy]*)
-			for file in .{bashrc,bash_profile,inputrc}; do
+			for file in .{bashrc,bash_profile,inputrc,ackrc,npmrc}; do
 				src="$DOTFILES_DIR/$file"
 				dest="$HOME/$file"
 

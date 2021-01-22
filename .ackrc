@@ -1,0 +1,6 @@
+--type-add=ruby=.haml,.rake
+--type-add=css=.less,.scss,.sass
+--type-add=config=.conf
+--ignore-dir=node_modules
+--ignore-dir=wp-admin
+--ignore-dir=wp-includes

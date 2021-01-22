@@ -17,6 +17,8 @@ $symlinks = @{
 	"$PSScriptRoot\.bashrc"                         = "$HOME\.bashrc"
 	"$PSScriptRoot\.bash_profile"                   = "$HOME\.bash_profile"
 	"$PSScriptRoot\.inputrc"                        = "$HOME\.inputrc"
+	"$PSScriptRoot\.ackrc"                          = "$HOME\.ackrc"
+	"$PSScriptRoot\.npmrc"                          = "$HOME\.npmrc"
 	"$PSScriptRoot\profile.ps1"                     = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 	"$PSScriptRoot\windows-terminal-settings.jsonc" = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 }
