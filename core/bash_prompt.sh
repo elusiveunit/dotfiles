@@ -227,7 +227,7 @@ set_bash_prompt() {
 	# ---------- Line 2 ----------
 	PS1+="\[${white}\]\n"                # newline, set white
 	PS1+=$'\xe2\x94\x94\xe2\x94\x80[\A]' # └ and ─, time in [HH:MM]
-	PS1+=$'\xe2\x86\x92 '                # →
+	PS1+=$'\xe2\x86\x92  '               # → and trailing space
 	PS1+="\[${color_reset}\]"            # reset color
 
 	export PS1;
