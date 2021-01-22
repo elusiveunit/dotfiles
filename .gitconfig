@@ -115,3 +115,4 @@
     cur-branch = rev-parse --abbrev-ref HEAD
     mm = "!git checkout master && git merge dev && git checkout dev"
     mmp = "!git mm && git psa"
+    ack = "!git ls-files --others --cached --exclude-standard | ack -x"
