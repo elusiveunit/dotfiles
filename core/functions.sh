@@ -660,6 +660,20 @@ unlink_js_common() {
 	mv "node_modules/js-common-original" "node_modules/js-common"
 	echo "Restored original node_modules/js-common"
 }
+unlink_all_js_common() {
+	echo "Looking for js-common symlinks in $SITESPATH, this may take a minute or two..."
+	local found=($(find -L "$SITESPATH" -samefile "$DEVELOPMENTPATH/js-common"))
+	local trailing_sitespath="$SITESPATH/"
+	if [ "${#found[@]}" -eq 0 ]; then
+		echo "No symlinks found"
+	else
+		for found_path in "${found[@]}"; do
+			unlink "$found_path"
+			mv "$found_path-original" "$found_path"
+			echo "Unlinked js-common at ${found_path/$trailing_sitespath/}"
+		done
+	fi
+}
 
 # Copy all folders from the current directory to the WordPress repo plugin
 # folder. Deletes existing folders to make sure obsolete files are gone.
