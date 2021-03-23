@@ -21,6 +21,8 @@ alias r="reload"
 alias g="git"
 alias gr="grunt"
 alias nr="npm run"
+alias ni="npm i"
+alias npmif="rm package-lock.json && rm -rf node_modules && npm i"
 alias please="sudo"
 
 # Docker shortcuts
