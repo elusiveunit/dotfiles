@@ -44,3 +44,23 @@ while true; do
 			break ;;
 	esac
 done
+
+while true; do
+	read -p "Add vim plugins? [y/N] " yn
+	case $yn in
+		[Yy]*)
+			mkdir -p ~/.vim/pack/vendor/start
+			git -C ~/.vim/pack/vendor/start clone https://github.com/itchyny/lightline.vim.git
+			git -C ~/.vim/pack/vendor/start clone https://github.com/editorconfig/editorconfig-vim.git
+			git -C ~/.vim/pack/vendor/start clone https://github.com/preservim/nerdtree.git
+			vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
+			git -C ~/.vim/pack/vendor/start clone https://github.com/airblade/vim-gitgutter.git
+			vim -u NONE -c "helptags ~/.vim/pack/vendor/start/vim-gitgutter/doc" -c q
+			git -C ~/.vim/pack/vendor/start clone https://github.com/mhartington/oceanic-next.git
+			print_green "Added vim plugins"
+			break ;;
+		*)
+			print_yellow "Skipped vim plugins"
+			break ;;
+	esac
+done
