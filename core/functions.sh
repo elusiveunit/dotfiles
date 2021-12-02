@@ -554,6 +554,19 @@ depb() {
 deps() {
 	docker_enter_prod "$1" "$2" sh
 }
+dcup() {
+	current_path=$(pwd)
+	# Does not start with sitespath or is sitespath exactly
+	if [[ $current_path != $SITESPATH* ]] || [ $current_path == $SITESPATH ]; then
+		echo "Not in an app"
+		return
+	fi
+	current_path_parts=(${current_path//// })
+	app_root_path=$(printf '/%s' "${current_path_parts[@]:0:4}")
+	app_domain=$(basename "$app_root_path")
+	app_name="${app_domain//./-}"
+	(cd "$app_root_path" && docker compose --project-name "$app_name" up)
+}
 
 # Reload docker processes
 # -----------------------------------------------------------------------------
