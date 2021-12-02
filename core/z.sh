@@ -1,5 +1,5 @@
 # https://raw.githubusercontent.com/rupa/z/master/z.sh
-# Updated 2020-05-02
+# Updated 2021-12-02
 # -----------------------------------------------------------------------------
 
 # Copyright (c) 2009 rupa deadwyler. Licensed under the WTFPL license, Version 2
@@ -28,6 +28,8 @@
 #     * z -l foo  # list matches instead of cd
 #     * z -e foo  # echo the best match, don't cd
 #     * z -c foo  # restrict matches to subdirs of $PWD
+#     * z -x      # remove the current directory from the datafile
+#     * z -h      # show a brief help message
 
 [ -d "${_Z_DATA:-$HOME/.z}" ] && {
     echo "ERROR: z.sh's datafile (${_Z_DATA:-$HOME/.z}) is a directory."
@@ -44,6 +46,8 @@ _z() {
     [ -z "$_Z_OWNER" -a -f "$datafile" -a ! -O "$datafile" ] && return
 
     _z_dirs () {
+        [ -f "$datafile" ] || return
+
         local line
         while read line; do
             # only count directories
@@ -56,14 +60,16 @@ _z() {
     if [ "$1" = "--add" ]; then
         shift
 
-        # $HOME isn't worth matching
-        [ "$*" = "$HOME" ] && return
+        # $HOME and / aren't worth matching
+        [ "$*" = "$HOME" -o "$*" = '/' ] && return
 
         # don't track excluded directory trees
-        local exclude
-        for exclude in "${_Z_EXCLUDE_DIRS[@]}"; do
-            case "$*" in "$exclude*") return;; esac
-        done
+        if [ ${#_Z_EXCLUDE_DIRS[@]} -gt 0 ]; then
+            local exclude
+            for exclude in "${_Z_EXCLUDE_DIRS[@]}"; do
+                case "$*" in "$exclude"*) return;; esac
+            done
+        fi
 
         # maintain the data file
         local tempfile="$datafile.$RANDOM"
@@ -161,7 +167,7 @@ _z() {
                         }
                     }
                 } else {
-                    if( common ) best_match = common
+                    if( common && !typ ) best_match = common
                     print best_match
                 }
             }
