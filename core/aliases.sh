@@ -13,6 +13,7 @@ alias temp="cd $HOME/temp"
 alias projects="cd $HOME/projects"
 alias web="cd $HOME/projects/web"
 alias devops="cd $DEVOPSPATH"
+alias kassa="cd $SITESPATH/jula.se/src/Jula.Store.Web.Checkout"
 
 # Command shortcuts
 alias c="cls"
@@ -61,9 +62,9 @@ alias gti="git"
 alias git="LANG=en_US git"
 
 # Misc. utility stuff
-alias myip="curl -s http://ip.mindius.se/text/"
+alias myip="echo $(curl -s https://checkip.amazonaws.com/)"
 alias rsync_s="rsync -avz -e 'ssh -o StrictHostKeyChecking=no'"
-alias ping_ext="dig @8.8.8.8"
+alias digg="dig @8.8.8.8"
 
 # Get week number
 alias week="date +%V"
