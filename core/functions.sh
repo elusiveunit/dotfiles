@@ -554,7 +554,7 @@ depb() {
 deps() {
 	docker_enter_prod "$1" "$2" sh
 }
-dcup() {
+docker_compose_root() {
 	current_path=$(pwd)
 	# Does not start with sitespath or is sitespath exactly
 	if [[ $current_path != $SITESPATH* ]] || [ $current_path == $SITESPATH ]; then
@@ -565,7 +565,13 @@ dcup() {
 	app_root_path=$(printf '/%s' "${current_path_parts[@]:0:4}")
 	app_domain=$(basename "$app_root_path")
 	app_name="${app_domain//./-}"
-	(cd "$app_root_path" && docker compose --project-name "$app_name" up)
+	(cd "$app_root_path" && docker compose --project-name "$app_name" "$1")
+}
+dcup() {
+	docker_compose_root up
+}
+dcdown() {
+	docker_compose_root down
 }
 
 # Reload docker processes
