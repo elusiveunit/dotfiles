@@ -745,7 +745,7 @@ wp_move_themes() {
 # -----------------------------------------------------------------------------
 ssh_init() {
 	if is_mac; then
-		ssh-add -K
+		ssh-add --apple-use-keychain
 	elif is_windows; then
 		# https://help.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-git-for-windows
 		ssh_env=~/.ssh/agent.env
