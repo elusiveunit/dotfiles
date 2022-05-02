@@ -3,6 +3,7 @@
 npm config set save-prefix='~'
 
 npm i -g \
+	cloc \
 	diff-so-fancy \
 	fkill-cli \
 	gzip-size-cli \
