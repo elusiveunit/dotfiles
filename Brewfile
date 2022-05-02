@@ -45,7 +45,6 @@ cask "visual-studio-code"
 
 # Quick look plugins
 # https://github.com/sindresorhus/quick-look-plugins
-cask "qlcolorcode"
 cask "qlimagesize"
 cask "qlmarkdown"
 cask "qlprettypatch"
@@ -55,3 +54,4 @@ cask "quicklook-csv"
 cask "quicklook-json"
 cask "quicklookase"
 cask "suspicious-package"
+cask "syntax-highlight"
