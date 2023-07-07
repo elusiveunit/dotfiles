@@ -20,6 +20,7 @@ brew "node"
 brew "nss" # For mkcert
 brew "php"
 brew "pipenv"
+brew "pyenv"
 brew "ripgrep"
 brew "wget"
 
