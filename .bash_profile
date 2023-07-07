@@ -73,10 +73,10 @@ set bell-style none
 
 # cd when running a directory as a command. Also works with globs, e.g. `**/baz`
 # will enter `./foo/bar/baz`.
-shopt -s autocd
+# shopt -s autocd
 
 # Autocorrect typos in path names when using `cd`.
-shopt -s cdspell
+# shopt -s cdspell
 
 # Enable recursive globbing (`**` matching all files and zero or more
 # directories and subdirectories).
@@ -108,15 +108,25 @@ export ENV=local
 export EDITOR=vim
 export REACT_EDITOR=code
 
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# Increase from default 15 seconds.
+export PIP_DEFAULT_TIMEOUT=30
+
 # Mac only
 # -----------------------------------------------------------------------------
 if is_mac; then
 	# Misc.
 	export ANDROID_HOME="$HOME/Library/Android/sdk/"
-	export PATH="$GOPATH/bin:$DEVELOPMENTPATH/flutter/bin:$HOME/.pub-cache/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/sbin:~/.fastlane/bin:~/.local/bin":$PATH
+	export PATH="$GOPATH/bin:$DEVELOPMENTPATH/flutter/bin:$HOME/.pub-cache/bin:$HOME/.local/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/sbin:~/.fastlane/bin:~/.local/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
+
+	# Load nvm
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 	# Completion.
 	# Generate manage completion on every start to keep it updated.

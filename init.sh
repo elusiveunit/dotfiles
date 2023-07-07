@@ -3,6 +3,7 @@
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 CURRENT_PLATFORM=$( uname | tr '[:upper:]' '[:lower:]' )
 is_windows() { case "$CURRENT_PLATFORM" in msys*|cygwin*) true ;; *) false ;; esac }
+is_mac() { case "$CURRENT_PLATFORM" in darwin*) true ;; *) false ;; esac }
 
 source "$DOTFILES_DIR"/core/colors.sh
 
@@ -10,6 +11,13 @@ source "$DOTFILES_DIR"/core/colors.sh
 if is_windows; then
 	print_yellow "On Windows, run init.ps1 through an elevated PowerShell prompt instead."
 	exit
+fi
+
+# Hack to remove beep when pressing Ctrl+Cmd+Arrow
+# https://github.com/adobe/brackets/issues/2419
+if is_mac; then
+	mkdir -p ~/Library/KeyBindings
+	cp "$DOTFILES_DIR/DefaultKeyBinding.dict" ~/Library/KeyBindings/DefaultKeyBinding.dict
 fi
 
 while true; do
