@@ -5,7 +5,6 @@ brew "bat"
 brew "composer"
 brew "coreutils"
 brew "curl"
-brew "diff-so-fancy"
 brew "dnsmasq"
 brew "fd"
 brew "fzf"
@@ -46,7 +45,6 @@ cask "visual-studio-code"
 
 # Quick look plugins
 # https://github.com/sindresorhus/quick-look-plugins
-cask "betterzipql"
 cask "qlimagesize"
 cask "qlmarkdown"
 cask "qlprettypatch"
