@@ -4,7 +4,9 @@ is_windows() { case "$CURRENT_PLATFORM" in msys*|cygwin*) true ;; *) false ;; es
 is_mac() { case "$CURRENT_PLATFORM" in darwin*) true ;; *) false ;; esac }
 
 if is_mac; then
-	eval "$(brew shellenv bash)"
+	[ -f /usr/local/bin/brew ] && BREW_PATH='/usr/local/bin/brew'
+	[ -f /opt/homebrew/bin/brew ] && BREW_PATH='/opt/homebrew/bin/brew'
+	eval "$($BREW_PATH shellenv bash)"
 	DOTFILES_DIR="$(dirname "$(greadlink -f "${BASH_SOURCE[0]}")")"
 else
 	DOTFILES_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
