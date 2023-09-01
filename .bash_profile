@@ -119,9 +119,18 @@ export PIP_DEFAULT_TIMEOUT=30
 # Mac only
 # -----------------------------------------------------------------------------
 if is_mac; then
-	# Misc.
-	export ANDROID_HOME="$HOME/Library/Android/sdk/"
-	export PATH="$GOPATH/bin:$DEVELOPMENTPATH/flutter/bin:$HOME/.pub-cache/bin:$HOME/.local/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/sbin:~/.fastlane/bin:~/.local/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+	# ----- Set PATH -----
+	# Go
+	export PATH="$GOPATH/bin:$DEVELOPMENTPATH/flutter/bin:$HOME/.pub-cache/bin:$PATH"
+	# Android
+	export ANDROID_HOME="$HOME/Library/Android/sdk"
+	export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH"
+	# Cloud
+	export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+	# User
+	export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH"
+	# Homebrew curl
+	export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
 
 	source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
 	source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
@@ -136,9 +145,6 @@ if is_mac; then
 	# manage completion bash > /usr/local/etc/bash_completion.d/manage_bash_completion.sh
 	[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 	source "$DOTFILES_DIR"/core/aliases_completion.sh
-
-	# Use curl from Homebrew.
-	export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
 
 	# Add pyenv shim to PATH. SHOULD ALWAYS BE BELOW OTHER PATH CONFIG.
 	eval "$(pyenv init -)"
