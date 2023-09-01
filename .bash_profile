@@ -4,6 +4,7 @@ is_windows() { case "$CURRENT_PLATFORM" in msys*|cygwin*) true ;; *) false ;; es
 is_mac() { case "$CURRENT_PLATFORM" in darwin*) true ;; *) false ;; esac }
 
 if is_mac; then
+	eval "$(brew shellenv bash)"
 	DOTFILES_DIR="$(dirname "$(greadlink -f "${BASH_SOURCE[0]}")")"
 else
 	DOTFILES_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
@@ -120,8 +121,8 @@ if is_mac; then
 	export ANDROID_HOME="$HOME/Library/Android/sdk/"
 	export PATH="$GOPATH/bin:$DEVELOPMENTPATH/flutter/bin:$HOME/.pub-cache/bin:$HOME/.local/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/sbin:~/.fastlane/bin:~/.local/bin:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
-	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
+	source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
+	source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
 
 	# Load nvm
 	export NVM_DIR="$HOME/.nvm"
@@ -135,7 +136,7 @@ if is_mac; then
 	source "$DOTFILES_DIR"/core/aliases_completion.sh
 
 	# Use curl from Homebrew.
-	export PATH="/usr/local/opt/curl/bin:$PATH"
+	export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
 
 	# Add pyenv shim to PATH. SHOULD ALWAYS BE BELOW OTHER PATH CONFIG.
 	eval "$(pyenv init -)"
