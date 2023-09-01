@@ -7,6 +7,16 @@ is_mac() { case "$CURRENT_PLATFORM" in darwin*) true ;; *) false ;; esac }
 
 source "$DOTFILES_DIR"/core/colors.sh
 
+# Make files executable
+chmod u+x ./Nodefile
+for func_file in "${DOTFILES_DIR}/_functions/"*; do
+	# Skip files beginning with underscore
+	func_name=${func_file#$DOTFILES_DIR/_functions/}
+	[ "${func_name:0:1}" = "_" ] && continue;
+	chmod u+x "$func_file"
+done
+print_green "Made files executable"
+
 # Because ln in git bash is just a cp
 if is_windows; then
 	print_yellow "On Windows, run init.ps1 through an elevated PowerShell prompt instead."
