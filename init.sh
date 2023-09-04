@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+# Platform, keep in sync with .bash_profile and _functions/_base.sh
 CURRENT_PLATFORM=$( uname | tr '[:upper:]' '[:lower:]' )
-is_windows() { case "$CURRENT_PLATFORM" in msys*|cygwin*) true ;; *) false ;; esac }
-is_mac() { case "$CURRENT_PLATFORM" in darwin*) true ;; *) false ;; esac }
+CURRENT_ARCH=$( uname -m | tr '[:upper:]' '[:lower:]' )
+is_windows() { if [[ "$CURRENT_PLATFORM" == "msys"* || "$CURRENT_PLATFORM" == "cygwin"* ]]; then true; else false; fi }
+is_mac() { if [[ "$CURRENT_PLATFORM" == "darwin"* ]]; then true; else false; fi }
+is_apple() { if [[ "$CURRENT_PLATFORM" == "darwin"* && "$CURRENT_ARCH" == "arm64" ]]; then true; else false; fi }
 
 source "$DOTFILES_DIR"/core/colors.sh
 

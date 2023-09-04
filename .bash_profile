@@ -1,7 +1,9 @@
-# Platform, keep in sync with _functions/_base.sh
+# Platform, keep in sync with _functions/_base.sh and init.sh
 CURRENT_PLATFORM=$( uname | tr '[:upper:]' '[:lower:]' )
-is_windows() { case "$CURRENT_PLATFORM" in msys*|cygwin*) true ;; *) false ;; esac }
-is_mac() { case "$CURRENT_PLATFORM" in darwin*) true ;; *) false ;; esac }
+CURRENT_ARCH=$( uname -m | tr '[:upper:]' '[:lower:]' )
+is_windows() { if [[ "$CURRENT_PLATFORM" == "msys"* || "$CURRENT_PLATFORM" == "cygwin"* ]]; then true; else false; fi }
+is_mac() { if [[ "$CURRENT_PLATFORM" == "darwin"* ]]; then true; else false; fi }
+is_apple() { if [[ "$CURRENT_PLATFORM" == "darwin"* && "$CURRENT_ARCH" == "arm64" ]]; then true; else false; fi }
 
 if is_mac; then
 	[ -f /usr/local/bin/brew ] && BREW_PATH='/usr/local/bin/brew'
@@ -14,17 +16,23 @@ fi
 
 # Set core paths
 if is_mac; then
-	export DEVELOPMENTPATH="$HOME/dev"
+	if is_apple; then
+		export BINPATH="$HOME/bin"
+	else
+		export BINPATH="/usr/local/bin"
+	fi
 	export SITESPATH="$HOME/www"
+	export DEVELOPMENTPATH="$HOME/dev"
+	export DEVOPSPATH="$DEVELOPMENTPATH/devops"
+	export DOTFILESPATH="$DEVELOPMENTPATH/dotfiles" # Company version
 	export GOLANGPATH="$DEVELOPMENTPATH/go"
 	export GOPATH="$HOME/go"
-	export DOTFILESPATH="$DEVELOPMENTPATH/dotfiles" # Company version
+	export JAVASCRIPTPATH="$DEVELOPMENTPATH"
+	export PHPPATH="$DEVELOPMENTPATH"
 	export PYTHONPATH="$DEVELOPMENTPATH"
-	export DEVOPSPATH="$DEVELOPMENTPATH/devops"
-	export ANSIBLEPATH="$DEVOPSPATH/ansible"
 elif is_windows; then
-	export DEVELOPMENTPATH="/c/_/dev"
 	export SITESPATH="$DEVELOPMENTPATH/www"
+	export DEVELOPMENTPATH="/c/_/dev"
 	export GOLANGPATH="$DEVELOPMENTPATH/go"
 	export GOPATH="$HOME/go"
 fi
