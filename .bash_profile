@@ -45,6 +45,7 @@ if is_mac; then
 	# The overridden PROMPT_COMMAND adds a noticeable delay in Windows git bash.
 	source "$DOTFILES_DIR"/core/z.sh
 	# fzf settings and keybindings.
+	# (Run `$(brew --prefix)/opt/fzf/install` after install to create file.)
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fi
 if is_windows; then
