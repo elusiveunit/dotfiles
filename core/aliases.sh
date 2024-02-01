@@ -90,6 +90,8 @@ alias lsd="(ls -d1 */ | cut -f1 -d'/')"
 # https://remysharp.com/2018/08/23/cli-improved
 alias prw="fzf --preview 'bat --color \"always\" {}'"
 alias cat="bat"
+alias ytdu="yt-dlp -o '%(uploader)s - %(title)s.%(ext)s'"
+alias ytdp="yt-dlp -o '%(playlist)s/%(title)s.%(ext)s' -i"
 
 # Mac only
 if is_mac; then
