@@ -1,3 +1,4 @@
+brew "1password-cli"
 brew "ack"
 brew "bash"
 brew "bash-completion"
