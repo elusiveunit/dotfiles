@@ -21,6 +21,7 @@ $symlinks = @{
 	"$PSScriptRoot\.npmrc"                          = "$HOME\.npmrc"
 	"$PSScriptRoot\profile.ps1"                     = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 	"$PSScriptRoot\windows-terminal-settings.jsonc" = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+	"$PSScriptRoot\yt-dlp.conf"                     = "$HOME\yt-dlp.conf"
 }
 
 $targets = @()
